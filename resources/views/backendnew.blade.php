@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{{asset('bootstrap')}}/css/bootstrap.css">
   <link rel="stylesheet" href="{{asset('bootstrap')}}/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{asset('bootstrap')}}/css/bootstrap-grid.css">
+
   <!-- Favicon -->
   <link rel="shortcut icon" href="{{asset('backendelegant')}}/img/svg/logo.svg" type="image/x-icon">
   <!-- Custom styles -->
@@ -39,7 +40,8 @@
     <link href="{{asset('fontaws')}}/webfonts/fa-brands-400.tts" rel="stylesheet">
     <link href="{{asset('fontaws')}}/webfonts/fa-reguler-400.tts" rel="stylesheet">
     <link href="{{asset('fontaws')}}/webfonts/fa-solid-900.tts" rel="stylesheet">
-</head>
+    
+  </head>
 
 <body>
   <div class="layer"></div>
@@ -716,8 +718,8 @@
     <footer class="footer">
   <div class="container footer--flex">
     <div class="footer-start">
-      <p>2021 © Elegant Dashboard - <a href="elegant-dashboard.com" target="_blank"
-          rel="noopener noreferrer">elegant-dashboard.com</a></p>
+      <p>2023 © Himpunan Mahasiswa Teknik Informatika - <a href="elegant-dashboard.com" target="_blank"
+          rel="noopener noreferrer">HIMATIF</a></p>
     </div>
     <ul class="footer-end">
       <li><a href="##">About</a></li>
