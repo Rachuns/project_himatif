@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Aspirasi;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class AspirasiController extends Controller
     public function index()
     {
         $aspirasis = Aspirasi::latest()->paginate(20);
-        return view('aspirasi.index',compact('aspirasis'))->with('i', (request()->input('page',1)-1) * 20);
+        return view('admin.aspirasi.index', compact('aspirasis'))->with('i', (request()->input('page', 1) - 1) * 20);
     }
 
     /**
@@ -24,7 +25,7 @@ class AspirasiController extends Controller
      */
     public function create()
     {
-        return view('aspirasi.create_aspirasi');
+        return view('admin.aspirasi.create_aspirasi');
     }
 
     /**
@@ -41,7 +42,7 @@ class AspirasiController extends Controller
             'aspirasi' => 'required',
         ]);
         Aspirasi::create($request->all());
-        return redirect()->route('himatif.index')->with('success','Berhasil Menambahkan Aspirasi');
+        return redirect()->route('admin.himatif.index')->with('success', 'Berhasil Menambahkan Aspirasi');
     }
 
     /**
@@ -64,7 +65,7 @@ class AspirasiController extends Controller
     public function edit(Aspirasi $aspirasi)
     {
         $aspirasis = Aspirasi::latest()->paginate(20);
-        return view('aspirasi.edit',compact('aspirasis','aspirasi'));
+        return view('admin.aspirasi.edit', compact('aspirasis', 'aspirasi'));
     }
 
     /**
@@ -74,7 +75,7 @@ class AspirasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Aspirasi $aspirasi)
+    public function update(Request $request, Aspirasi $aspirasi)
     {
         $request->validate([
             'nama_penyalur' => 'required',
@@ -82,8 +83,8 @@ class AspirasiController extends Controller
             'aspirasi' => 'required',
         ]);
         $aspirasi->update($request->all());
-        return redirect()->route('aspirasi.index')
-                        ->with('success','Data berhasil dirubah');
+        return redirect()->route('admin.aspirasi.index')
+            ->with('success', 'Data berhasil dirubah');
     }
 
     /**
@@ -95,7 +96,7 @@ class AspirasiController extends Controller
     public function destroy(Aspirasi $aspirasi)
     {
         $aspirasi->delete();
-        return redirect()->route('aspirasi.index')
-                        ->with('success','Data berhasil dihapus');
+        return redirect()->route('admin.aspirasi.index')
+            ->with('success', 'Data berhasil dihapus');
     }
 }

@@ -1,5 +1,6 @@
-@extends('backendnew')
-@section('konten')
+@extends('admin.layouts.base')
+
+@section('main-content')
 <div class="card mb-4">
     <div class="card-header"><i class="fas fa-table mr-1"></i> Data Aspirasi Informatika</div>
     <div class="card-body">

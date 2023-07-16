@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $akuns = User::latest()->paginate(20);
-        return view('akun.index',compact('akuns'))->with('i', (request()->input('page',1)-1) * 20);
+        return view('admin.akun.index', compact('akuns'))->with('i', (request()->input('page', 1) - 1) * 20);
     }
     public function authenticate(Request $request)
     {
@@ -24,15 +24,15 @@ class UserController extends Controller
             'username' => ['required'],
             'password' => ['required']
         ]);
-        if(Auth::attempt($credential)){
+        if (Auth::attempt($credential)) {
             $request->session()->regenerate();
             return view('backendnew');
         }
-        return back()->with('Login Error','Login Gagal');
+        return back()->with('Login Error', 'Login Gagal');
     }
     public function create()
     {
-        return view('akun.create');
+        return view('admin.akun.create');
     }
 
     /**
@@ -51,9 +51,9 @@ class UserController extends Controller
         User::create([
             'name' => $request->name,
             'username' => $request->username,
-            'password' =>password_hash($request->password,PASSWORD_BCRYPT),
+            'password' => password_hash($request->password, PASSWORD_BCRYPT),
         ]);
-        return view('login')->with('Berhasil','Anda telah berhasil melakukan penambahan akun');
+        return view('login')->with('Berhasil', 'Anda telah berhasil melakukan penambahan akun');
     }
 
     /**
@@ -99,13 +99,13 @@ class UserController extends Controller
     public function destroy(User $akun)
     {
         $akun->delete();
-        return redirect()->route('akun.index')
-                        ->with('success','Data berhasil dihapus');
+        return redirect()->route('admin.akun.index')
+            ->with('success', 'Data berhasil dihapus');
     }
     public function logout(Request $request)
     {
         Auth::logout();
-		request()->session()->invalidate();
-		return redirect('/admin');
+        request()->session()->invalidate();
+        return redirect('/admin');
     }
 }

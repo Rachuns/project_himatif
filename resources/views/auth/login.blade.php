@@ -28,17 +28,23 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
-            <h3>Login <strong>Admin HIMATIF</strong></h3>
-            <form action="/logins" method="POST">
+            <h3 class="mb-4">Login <strong>Admin HIMATIF</strong></h3>
+            <form action="/sign-in" method="POST">
               @csrf 
               @method('POST')
+
               <div class="form-group first">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" name="username" placeholder="Username" id="username">
+                <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" value="{{ old('username') }}" required>
+                @error('username')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
               </div>
               <div class="form-group last mb-3">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+                <input type="password" class="form-control" name="password" id="password" required>
               </div>
 
               <div class="d-flex mb-5 align-items-center">
@@ -49,7 +55,7 @@
                 <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
               </div>
 
-              <input type="submit" value="Log In" class="btn btn-block btn-primary">
+              <button type="submit" class="btn btn-block btn-primary">Log In</button>
 
             </form>
           </div>

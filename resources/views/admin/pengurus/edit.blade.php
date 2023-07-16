@@ -1,4 +1,7 @@
-@extends('backend') @section('content') <div class="container-fluid">
+@extends('admin.layouts.base')
+
+@section('main-content')
+<div class="container-fluid">
     <h1 class="mt-4">Pengurus himatif</h1>
     <div class="card mb-4">
         <div class="card-header"><i class="fas fa-edit mr-1"></i>Edit Pengurus himatif</div>

@@ -1,5 +1,6 @@
-@extends('backend')
-@section('content')
+@extends('admin.layouts.base')
+
+@section('main-content')
 <div class="container-fluid">
     <h1 class="mt-4">Aspirasi Informatika</h1>
     <div class="card mb-4">

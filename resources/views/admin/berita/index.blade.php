@@ -1,15 +1,16 @@
-@extends('backendnew')
-@section('konten')
+@extends('admin.layouts.base')
+
+@section('main-content')
 {{-- <h2 class="main-title">Halaman Berita</h2> --}}
 <link rel="stylesheet" href="berita.css">
 <div class="card mb-4" style="background-color:var(--bs-body-bg)">
     <div class="card-header"><i class="fas fa-table mr-1"></i>Berita Informatika</div>
     <div class="card-body">
     <div class="table-responsive">
-            @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
         @endif
     <a class="btn btn-success" href="{{ route('berita.create') }}"> Tambah Berita <i class="fas fa-plus"></i></a>
     <p style="margin-top:20px"></p>
@@ -46,5 +47,5 @@
         </div>
     </div>
 </div>
-<!-- {!! $beritas->links() !!} -->
+{{-- <!-- {!! $beritas->links() !!} --> --}}
 @endsection

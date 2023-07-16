@@ -1,5 +1,6 @@
-@extends('backend')
-@section('content')
+@extends('admin.layouts.base')
+
+@section('main-content')
 <h2 class="main-title">Halaman Akun</h2>
 <div class="card mb-4">
     <div class="card-header"><i class="fas fa-table mr-1"></i>Data Akun Admin</div>

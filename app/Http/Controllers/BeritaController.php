@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Berita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use DB;
+
 class BeritaController extends Controller
 {
     /**
@@ -16,7 +18,7 @@ class BeritaController extends Controller
     public function index()
     {
         $beritas = Berita::latest()->paginate(20);
-        return view('berita.index',compact('beritas'))->with('i', (request()->input('page',1)-1) * 2);
+        return view('admin.berita.index', compact('beritas'))->with('i', (request()->input('page', 1) - 1) * 2);
     }
 
     /**
@@ -26,12 +28,12 @@ class BeritaController extends Controller
      */
     public function create()
     {
-        return view('berita.create');
+        return view('admin.berita.create');
     }
 
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'judul_berita' => 'required',
             'deskripsi' => 'required',
             'foto_berita' => 'required|image|mimes:jpeg,png,jpg|max:5120',
@@ -49,7 +51,7 @@ class BeritaController extends Controller
             'tanggal_rilis' => $request->tanggal_rilis,
             'foto_berita' => $nama_file,
         ]);
-        return redirect()->route('berita.index')
+        return redirect()->route('admin.berita.index')
             ->with('success', 'Berita Berhasil Ditambahkan.');
     }
     public function show($id)
@@ -65,7 +67,7 @@ class BeritaController extends Controller
      */
     public function edit(Berita $beritum)
     {
-        return view('berita.edit_berita',compact('beritum'));
+        return view('admin.berita.edit_berita', compact('beritum'));
     }
 
     /**
@@ -83,21 +85,21 @@ class BeritaController extends Controller
             'tanggal_rilis' => 'required|date',
         ]);
         $inputan = $request->all();
-        if($foto = $request->file('foto_berita')){
+        if ($foto = $request->file('foto_berita')) {
             $tujuan = 'data_file/berita';
             $nama_file = time() . "_" . $foto->getClientOriginalName();
             $foto->move($tujuan, $nama_file);
-            
-            if(File::exists('data_file/berita/'. $beritum->foto_berita)){
-               File::delete('data_file/berita/'. $beritum->foto_berita);
+
+            if (File::exists('data_file/berita/' . $beritum->foto_berita)) {
+                File::delete('data_file/berita/' . $beritum->foto_berita);
             }
             $inputan['foto_berita'] = "$nama_file";
         }
 
         $beritum->update($inputan);
-        if($beritum){
-            return redirect()->route('berita.index')
-                            ->with('success','Berita berhasil di update');
+        if ($beritum) {
+            return redirect()->route('admin.berita.index')
+                ->with('success', 'Berita berhasil di update');
         }
         // $foto = Storage::delete($beritum->foto_berita);
         // $file = $request->file('foto_berita');
@@ -127,12 +129,11 @@ class BeritaController extends Controller
         // return redirect()->route('berita.index')
         //                  ->with('success','Berita berhasil dihapus');
 
-        if(File::exists('data_file/berita/'. $beritum->foto_berita)){
-            File::delete('data_file/berita/'. $beritum->foto_berita);
-         }
+        if (File::exists('data_file/berita/' . $beritum->foto_berita)) {
+            File::delete('data_file/berita/' . $beritum->foto_berita);
+        }
         $beritum->delete();
-        return redirect()->route('berita.index')
-                        ->with('success','Berita berhasil dihapus');
+        return redirect()->route('admin.berita.index')
+            ->with('success', 'Berita berhasil dihapus');
     }
 }
-?>

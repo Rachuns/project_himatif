@@ -16,7 +16,7 @@ class PengurusController extends Controller
     public function index()
     {
         $penguruss = Pengurus::latest()->paginate(20);
-        return view('pengurus.index',compact('penguruss'))->with('i', (request()->input('page',1)-1) * 20);
+        return view('admin.pengurus.index', compact('penguruss'))->with('i', (request()->input('page', 1) - 1) * 20);
     }
 
     /**
@@ -26,7 +26,7 @@ class PengurusController extends Controller
      */
     public function create()
     {
-        return view('pengurus.create');
+        return view('admin.pengurus.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class PengurusController extends Controller
             'nama_pengurus' => 'required',
             'jabatan' => 'required',
             'katakata' => 'required',
-            'foto_pengurus'=> 'required|image|mimes:jpeg,png,jpg|max:5120',
+            'foto_pengurus' => 'required|image|mimes:jpeg,png,jpg|max:5120',
         ]);
 
         $file = $request->file('foto_pengurus');
@@ -55,7 +55,7 @@ class PengurusController extends Controller
             'katakata' => $request->katakata,
             'foto_pengurus' => $nama_file,
         ]);
-        return redirect()->route('pengurus.index')->with('success','Berhasil Menambahkan Pengurus');
+        return redirect()->route('admin.pengurus.index')->with('success', 'Berhasil Menambahkan Pengurus');
     }
 
     /**
@@ -77,7 +77,7 @@ class PengurusController extends Controller
      */
     public function edit(Pengurus $penguru)
     {
-        return view('pengurus.edit',compact('penguru'));
+        return view('admin.pengurus.edit', compact('penguru'));
     }
 
     /**
@@ -87,7 +87,7 @@ class PengurusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Pengurus $penguru)
+    public function update(Request $request, Pengurus $penguru)
     {
         $request->validate([
             'nama_pengurus' => 'required',
@@ -95,34 +95,34 @@ class PengurusController extends Controller
             'katakata' => 'required',
         ]);
         $inputan = $request->all();
-        if($foto = $request->file('foto_pengurus')){
+        if ($foto = $request->file('foto_pengurus')) {
             $tujuan = 'data_file/pengurus';
             $nama_file = time() . "_" . $foto->getClientOriginalName();
             $foto->move($tujuan, $nama_file);
-            
-            if(File::exists('data_file/pengurus/'. $penguru->foto_pengurus)){
-               File::delete('data_file/pengurus/'. $penguru->foto_pengurus);
+
+            if (File::exists('data_file/pengurus/' . $penguru->foto_pengurus)) {
+                File::delete('data_file/pengurus/' . $penguru->foto_pengurus);
             }
             $inputan['foto_pengurus'] = "$nama_file";
         }
 
         $penguru->update($inputan);
-        if($penguru){
-            return redirect()->route('pengurus.index')
-                            ->with('success','Pengurus berhasil di update');
-        }else{
-            return redirect()->route('pengurus.index')
-                            ->with('success','Pengurus gagal di update');
+        if ($penguru) {
+            return redirect()->route('admin.pengurus.index')
+                ->with('success', 'Pengurus berhasil di update');
+        } else {
+            return redirect()->route('admin.pengurus.index')
+                ->with('success', 'Pengurus gagal di update');
         }
     }
 
     public function destroy(Pengurus $penguru)
-    {  
-        if(File::exists('data_file/pengurus/'. $penguru->foto_pengurus)){
-            File::delete('data_file/pengurus/'. $penguru->foto_pengurus);
-         }
+    {
+        if (File::exists('data_file/pengurus/' . $penguru->foto_pengurus)) {
+            File::delete('data_file/pengurus/' . $penguru->foto_pengurus);
+        }
         $penguru->delete();
-        return redirect()->route('pengurus.index')
-                        ->with('success','Pengurus berhasil dihapus');
+        return redirect()->route('admin.pengurus.index')
+            ->with('success', 'Pengurus berhasil dihapus');
     }
 }

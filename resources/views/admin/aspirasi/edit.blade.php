@@ -1,5 +1,6 @@
-@extends('backend')
-@section('content')
+@extends('admin.layouts.base')
+
+@section('main-content')
 <form action="{{ route('aspirasi.update',$aspirasi->id_aspirasi) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
